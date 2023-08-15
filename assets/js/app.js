@@ -146,7 +146,7 @@ taskList.addEventListener("click", (event) => {
 });
 
 
-// ... Tu código JavaScript existente ...
+window.addEventListener('load', loadWeatherAndQuote);
 
 const addNoteButton = document.getElementById("addNoteButton");
 const noteModal = document.getElementById("noteModal");
@@ -220,4 +220,4 @@ notesAndIdeasList.addEventListener("click", (event) => {
 
 
 
-window.addEventListener('load', loadWeatherAndQuote);
+
