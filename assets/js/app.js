@@ -146,6 +146,77 @@ taskList.addEventListener("click", (event) => {
 });
 
 
+// ... Tu código JavaScript existente ...
+
+const addNoteButton = document.getElementById("addNoteButton");
+const noteModal = document.getElementById("noteModal");
+const saveNoteButton = document.getElementById("saveNote");
+const noteTextarea = document.getElementById("noteTextarea");
+const typeSelect = document.getElementById("type");
+const notesAndIdeasList = document.getElementById("notesAndIdeasList");
+
+addNoteButton.addEventListener("click", () => {
+    noteModal.classList.remove("hidden");
+});
+
+saveNoteButton.addEventListener("click", () => {
+    const noteText = noteTextarea.value;
+    const type = typeSelect.value;
+
+    if (noteText) {
+        const noteElement = document.createElement("div");
+        noteElement.classList.add("bg-white", "p-4", "rounded", "shadow-md", "flex", "justify-between");
+        noteElement.innerHTML = `
+            <div>
+                <p class="text-lg">${noteText}</p>
+                <p class="text-sm">${type}</p>
+            </div>
+            <button class="bg-blue-500 text-white py-1 px-2 rounded edit-button">Edit</button>
+            <button class="bg-red-500 text-white py-1 px-2 rounded delete-button">Delete</button>
+        `;
+        notesAndIdeasList.appendChild(noteElement);
+
+        noteModal.classList.add("hidden");
+        noteTextarea.value = "";
+        typeSelect.value = "note";
+    }
+});
+
+notesAndIdeasList.addEventListener("click", (event) => {
+    if (event.target.classList.contains("edit-button")) {
+        const noteElement = event.target.parentElement;
+        const noteTextElement = noteElement.querySelector(".text-lg");
+        const typeElement = noteElement.querySelector(".text-sm");
+
+        const editNoteTextarea = document.getElementById("editNoteTextarea");
+        const editTypeSelect = document.getElementById("editType");
+
+        editNoteTextarea.value = noteTextElement.textContent;
+        editTypeSelect.value = typeElement.textContent;
+
+        const editNoteModal = document.getElementById("editNoteModal");
+        editNoteModal.classList.remove("hidden");
+
+        const updateNoteButton = document.getElementById("updateNote");
+        updateNoteButton.addEventListener("click", () => {
+            const updatedNoteText = editNoteTextarea.value;
+            const updatedType = editTypeSelect.value;
+
+            if (updatedNoteText) {
+                noteTextElement.textContent = updatedNoteText;
+                typeElement.textContent = updatedType;
+
+                editNoteModal.classList.add("hidden");
+            }
+        });
+    } else if (event.target.classList.contains("delete-button")) {
+        const noteElement = event.target.parentElement;
+        notesAndIdeasList.removeChild(noteElement);
+    }
+});
+
+
+
 
 
 
